@@ -1,0 +1,15 @@
+CREATE TABLE books (
+    book_id  SERIAL PRIMARY KEY,
+    title varchar(255) NOT NULL,
+    author varchar(255) NOT NULL,
+    price float,
+    publishyear int
+);
+
+
+INSERT INTO books (title, author, price, publishyear) VALUES
+( 'Emma', 'Jayne Austen', 9.44, 2000),
+('The Time Machine', 'H. G. Wells', 5.99, 2001),
+('The Prince', 'Niccolò Machiavelli', 6.99, 2002);
+
+
