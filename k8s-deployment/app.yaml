@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookslib
+  labels:
+    app: bookslib
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bookslib
+  template:
+    metadata:
+      labels:
+        app: bookslib
+    spec:
+      containers:
+      - name: bookslib
+        image: moresandesh/bookslib:v0.1
+        ports:
+        - containerPort: 8080
+        envFrom:
+          - secretRef:
+              name: bookslib
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: bookslib
+data:
+  DBURL: cG9zdGdyZXM6Ly9ib29rc3VzZXI6cEBzc3cwcmQxMjNAcG9zdGdyZXNxbC0wLnBvc3RncmVzcWw6NTQzMi9ib29rcz9zc2xtb2RlPWRpc2FibGU=
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookslib
+spec:
+  type: ClusterIP
+  selector:
+    app: bookslib
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
